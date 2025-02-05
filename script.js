@@ -166,34 +166,38 @@ document.addEventListener('DOMContentLoaded', () => {
             7: {
                 title: "Happy Rose Day! 🌹",
                 message: [
+                    "ab tum khud hi gulab jaisi ho,\n toh tumhari tarif kaya hi karun..\npar ek shayri toh kar sakta hu..",
                     "Gulab ki tarah khushboo ho tum,\nZindagi ke garden ki jaan ho tum...",
-                    "Every rose reminds me of your smile,\nMaking my world beautiful, mile by mile...",
-                    "Phool khilte hain, log milte hain,\nPar tum jaisa koi nahi milta... 🌸",
-                    "Red like roses, pure like you,\nMaking every day feel brand new! ✨",
-                    "Rose is red, sky is blue,\nNo flower is as pretty as you! 🌺"
-                ].join('\n---\n'), // Add separator between messages
+                    "haan okay pata hain sayari acchi nahi thi..\npar you know what i mean..",
+                    "okay chalo ek aur try karte hain..\nPhool khilte hain, log milte hain,\nPar tum jaisa koi nahi milta... 🌸",
+                    "haan pata hain kharab hain meri shayeri..\nrose day wish karne aaya tha bas..",
+                    "chalo kal ana firse... 🌹"
+                ].join('\n\n'), // Add separator between messages
                 showButtons: false
             },
             8: {
                 title: "Happy Propose Day! 💝",
                 message: [
-                    "Har safar me tum saath chalo,\nIs dil ki har dhadkan me tum ho...",
-                    "Will you be my:- \n√ Debugger in errors\n√ Validator in doubts\n√ Parser of thoughts\n√ Compiler of dreams",
-                    "Tum jo haan keh do to,\nYe duniya meri ho jaye! 💫",
-                    "Not just today, but every day,\nI choose you to be my favorite bug in production! 🐛",
-                    "Loading proposal.exe...\nWaiting for your response... ⌛"
-                ].join('\n---\n'), // Add separator between messages
+                    "where do you want me to propose you??",
+                    "jaha bhi kaho waha aa jaunga..\npar pehle shayri suno..wo bhi english me..",
+                    "roses are red,\ncode is divine,\nI checked stackoverflow,\nHow to make you mine?",
+                    "Achha nahi tha na!!\nchalo ek aur try karte hain..",
+                    "My heart's mainframe crashed,\nWhen you compiled my life,\nNow all systems point to,\nMaking you my wife!",
+                    "ab hasna band karo aur daant andaar karo..\nkal ana firse..."
+                ].join('\n\n'), // Add separator between messages
                 showButtons: false
             },
             9: {
                 title: "Happy Chocolate Day! 🍫",
                 message: [
-                    "You're sweeter than chocolate,\nAnd that's saying something because I'm diabetic!",
+                    "mujhe pata hain tumhe chocolate pasand hain..\npar wo wala chocolate tumhe jada pasand hain...\nhain na?? 😜",
+                    "zomato se order karu ya swiggy se??",
+                    "chalo koi nahi..\nchocolate day wish karne aaya tha bas..",
+                    "chalo kal ana firse.. 🍪",
+                    "ruko shayri toh suna hi nahi..\ntumhe kya laga bina shayri ke chala jaunga??",
                     "Meethi si chocolate, meethi si tum,\nDuniya ki har khushi tumhare naam! 🍪",
-                    "Life is like a box of chocolates,\nBut you're my favorite flavor! 🎁",
-                    "My code may have bugs,\nBut my love for you is bug-free! 💝",
-                    "You're the chocolate chip to my cookie,\nThe sweetness to my code! 🍫"
-                ].join('\n---\n'), // Add separator between messages
+                    "haan pata hain rhyme nahi hua..\nanalyze karne ki zarurat nahi hain..",
+                ].join('\n\n'), // Add separator between messages
                 showButtons: false
             },
             10: {
@@ -282,6 +286,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateCountdown() {
+        const now = getCurrentDate();
+        
+        // Check for birthday first
+        if (now.getMonth() === 1 && now.getDate() === 22) {
+            showBirthdayWish();
+            return;
+        }
+    
         if (isLoveWeek()) {
             const dayMessage = getDayMessage();
             if (dayMessage) {
@@ -301,25 +313,70 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
         } else {
-            const now = getCurrentDate();
-            const roseDay = getNextValentinesDay(); // Now returns Rose Day date
-            const difference = roseDay - now;
+            const { date, event } = getNextImportantDate();
+            const difference = date - now;
     
-            if (isValentinesDay()) {
-                countdownContainer.classList.add('hidden');
-                valentineContent.classList.remove('hidden');
-                return;
-            }
-    
+            // Update countdown title dynamically
+            document.getElementById('countdown-title').textContent = `Time Until ${event}`;
+            
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
     
+            // Update countdown display
             document.getElementById('days').textContent = String(days).padStart(2, '0');
             document.getElementById('hours').textContent = String(hours).padStart(2, '0');
             document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
             document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+    }
+    
+    function showBirthdayWish() {
+        countdownContainer.classList.add('hidden');
+        valentineContent.classList.remove('hidden');
+        
+        const card = document.querySelector('.card');
+        card.innerHTML = `
+            <h1>Happy Birthday My Love! 🎂</h1>
+            <div class="message">
+                <p>To the most amazing person in my life...</p>
+                <p>Another year around the sun with you,<br>
+                   Makes my world brighter and more beautiful!<br>
+                   Your smile brings joy to my heart,<br>
+                   Your love gives meaning to my days.</p>
+                <p>May this special day bring you all the happiness,<br>
+                   All the love, and all the dreams you deserve!</p>
+                <p class="hindi-wish">
+                   जन्मदिन मुबारक हो मेरी जान! 🎉<br>
+                   तुम मेरी ज़िन्दगी की धड़कन हो,<br>
+                   मेरी हर ख़ुशी का कारण हो,<br>
+                   तुम्हारी हर मुस्कान पे मैं फ़िदा हूँ! ❤️
+                </p>
+            </div>
+        `;
+        
+        createConfetti();
+        playBackgroundMusic();
+    }
+    
+    function getNextImportantDate() {
+        const now = getCurrentDate();
+        const roseDay = new Date(now.getFullYear(), 1, 7); // Feb 7
+        const valentinesDay = new Date(now.getFullYear(), 1, 14); // Feb 14
+        const birthday = new Date(now.getFullYear(), 1, 22); // Feb 22
+        
+        if (now <= roseDay) {
+            return { date: roseDay, event: "Love Week" };
+        } else if (now <= valentinesDay) {
+            return { date: valentinesDay, event: "Valentine's Day" };
+        } else if (now <= birthday) {
+            return { date: birthday, event: "Birthday" };
+        } else {
+            return { 
+                date: new Date(now.getFullYear() + 1, 1, 7), 
+                event: "Next Love Week" 
+            };
         }
     }
 
@@ -351,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     testControls.innerHTML = `
         <div style="margin-bottom: 10px;">Test Different Days:</div>
-        ${[7,8,9,10,11,12,13,14].map(day => `
+        ${[7,8,9,10,11,12,13,14,15,16,22].map(day => `
             <button onclick="setTestDate(${day})" style="margin: 2px; padding: 5px;">
                 Feb ${day}
             </button>
