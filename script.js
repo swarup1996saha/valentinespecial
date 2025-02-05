@@ -107,32 +107,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     noBtn.addEventListener('mouseover', (e) => {
-        noAttempts++; // Increment no attempts counter
-        const isMobile = window.innerWidth <= 768;
+        moveNoButton();
+    });
+
+    // Add touch event for mobile
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent default touch behavior
+        moveNoButton();
+    });
+
+    function moveNoButton() {
+        noAttempts++;
         const card = document.querySelector('.card');
         const cardRect = card.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
         
-        // Calculate bounds within the card
-        const maxX = cardRect.width - noBtn.offsetWidth - 40; // 40px padding
-        const maxY = cardRect.height - noBtn.offsetHeight - 40;
+        // Define safe zone within card (accounting for button size and padding)
+        const safeZoneX = cardRect.width - btnRect.width - 20;
+        const safeZoneY = cardRect.height - btnRect.height - 20;
         
-        // Generate random position within card bounds
-        let randomX = Math.floor(Math.random() * maxX);
-        let randomY = Math.floor(Math.random() * maxY);
+        // Generate random position
+        let newX = Math.random() * safeZoneX;
+        let newY = Math.random() * safeZoneY;
         
-        if (isMobile) {
-            // Keep button more visible on mobile
-            randomX = Math.max(10, Math.min(randomX, maxX - 10));
-            randomY = Math.max(10, Math.min(randomY, maxY - 10));
-        }
+        // Ensure button stays within card boundaries
+        newX = Math.max(10, Math.min(newX, safeZoneX));
+        newY = Math.max(10, Math.min(newY, safeZoneY));
         
-        noBtn.style.position = 'absolute'; // Changed from 'fixed' to 'absolute'
-        noBtn.style.left = randomX + 'px';
-        noBtn.style.top = randomY + 'px';
+        // Apply new position
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = `${newX}px`;
+        noBtn.style.top = `${newY}px`;
+        noBtn.style.transition = 'all 0.3s ease';
 
         clickSound.play();
         updateNoButtonProperties();
-    });
+    }
 
     yesBtn.addEventListener('click', () => {
         card.style.display = 'none';

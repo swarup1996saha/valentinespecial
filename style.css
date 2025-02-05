@@ -36,14 +36,17 @@
     object-fit: cover;
 }
 
+/* Update body styling */
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background: none; /* Remove gradient background */
     font-family: 'Poppins', sans-serif;
+    position: relative;
+    overflow-x: hidden;
 }
 
 body:before {
@@ -59,10 +62,16 @@ body:before {
     z-index: -2;
 }
 
+/* Update container styling */
 .container {
     text-align: center;
     position: relative;
     perspective: 1000px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    z-index: 1;
 }
 
 .heart {
@@ -94,6 +103,7 @@ body:before {
 }
 
 .card {
+    position: relative; /* Add this */
     background: rgba(255, 255, 255, 0.7); /* More transparent */
     padding: 30px;
     border-radius: 15px;
@@ -104,6 +114,8 @@ body:before {
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px); /* Lighter blur */
+    overflow: hidden; /* Add this */
+    min-height: 300px; /* Add minimum height */
 }
 
 .card:hover {
@@ -132,6 +144,10 @@ button {
 #noBtn {
     background: linear-gradient(45deg, #9e9e9e, #757575);
     box-shadow: 0 4px 15px rgba(158, 158, 158, 0.3);
+    position: absolute;
+    transition: all 0.3s ease;
+    z-index: 10;
+    touch-action: none; /* Prevent default touch behaviors */
 }
 
 button:hover {
@@ -259,7 +275,78 @@ h1 {
     100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
 }
 
+/* Update mobile styles */
 @media screen and (max-width: 768px) {
+    body {
+        align-items: flex-start;
+        padding-top: 60px; /* Space for browser warning */
+    }
+
+    .container {
+        padding: 15px;
+        margin-top: 0;
+    }
+    
+    .card {
+        margin: 0 auto;
+        max-height: calc(100vh - 120px); /* Account for padding and warning */
+        overflow-y: auto;
+        min-height: 250px; /* Adjust for mobile */
+        padding: 20px;
+        width: 90%;
+    }
+
+    #countdown-container {
+        margin-top: 0;
+    }
+
+    body {
+        padding-top: 20px;
+        min-height: 100vh;
+        height: auto;
+    }
+
+    .container {
+        width: 90%;
+        padding: 15px;
+        margin-top: 40px; /* Add space for browser warning */
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 320px;
+        padding: 20px;
+        margin: 10px auto;
+        overflow-y: auto;
+        max-height: 80vh; /* Prevent content overflow */
+    }
+
+    .message {
+        font-size: 1em; /* Slightly smaller font for mobile */
+        line-height: 1.4;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        padding: 0 10px;
+        word-wrap: break-word;
+    }
+
+    .countdown-container {
+        margin-top: 40px;
+        padding: 10px;
+    }
+
+    /* Ensure browser warning doesn't overlap content */
+    .browserWarning {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
     .container {
         width: 90%;
         padding: 15px;
@@ -308,9 +395,18 @@ h1 {
         font-size: 2em;
         margin-bottom: 15px;
     }
+
+    #noBtn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
 }
 
 @media screen and (max-width: 320px) {
+    .container {
+        margin-top: 50px;
+    }
+
     .card {
         padding: 15px;
     }
@@ -323,9 +419,44 @@ h1 {
         padding: 12px;
         font-size: 16px;
     }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .card {
+        padding: 10px;
+        margin: 5px auto;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .message {
+        font-size: 0.9em;
+    }
 }
 
+/* Fix for tall mobile screens */
+@media screen and (max-height: 700px) {
+    .container {
+        margin-top: 60px;
+    }
+    
+    .card {
+        max-height: 70vh;
+    }
+}
+
+/* Update countdown container */
 .countdown-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     text-align: center;
     color: white;
     padding: 20px;
