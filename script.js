@@ -36,14 +36,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickSound = document.getElementById('clickSound');
 
     function initializeAudio() {
-        backgroundMusic.volume = 0.3;
+        backgroundMusic.volume = 1;
         clickSound.volume = 0.5;
-        // Auto-play music when page loads
+        
+        // Try to play music immediately
         playBackgroundMusic();
+        
+        // Add backup event listeners to start music on any user interaction
+        document.addEventListener('click', playBackgroundMusic, { once: true });
+        document.addEventListener('touchstart', playBackgroundMusic, { once: true });
+        document.addEventListener('keydown', playBackgroundMusic, { once: true });
     }
 
     function playBackgroundMusic() {
-        backgroundMusic.play().catch(err => console.log("Audio autoplay prevented"));
+        backgroundMusic.play()
+            .then(() => {
+                // Remove event listeners once music starts
+                document.removeEventListener('click', playBackgroundMusic);
+                document.removeEventListener('touchstart', playBackgroundMusic);
+                document.removeEventListener('keydown', playBackgroundMusic);
+            })
+            .catch(err => {
+                console.log("Will try to play on user interaction");
+            });
     }
 
     function updateNoButtonProperties() {
