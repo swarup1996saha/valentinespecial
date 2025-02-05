@@ -1,4 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Browser compatibility check
+    function checkBrowserCompatibility() {
+        const ua = navigator.userAgent;
+        const browserWarning = document.createElement('div');
+        browserWarning.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: #ff4081;
+            color: white;
+            text-align: center;
+            z-index: 9999;
+            display: none;
+        `;
+        
+        // Check for older browsers
+        if (
+            (ua.indexOf("MSIE ") > -1) || 
+            (ua.indexOf("Trident/") > -1) ||
+            (ua.indexOf("Edge/") > -1 && ua.indexOf("Edg/") === -1)
+        ) {
+            browserWarning.textContent = "Please use a modern browser like Chrome, Firefox, or Edge for the best experience!";
+            browserWarning.style.display = 'block';
+            document.body.prepend(browserWarning);
+        }
+        
+        // Check if backdrop-filter is supported
+        if (!CSS.supports('backdrop-filter', 'blur(3px)')) {
+            document.querySelectorAll('.card, #special-message').forEach(el => {
+                el.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+            });
+        }
+    }
+
+    checkBrowserCompatibility();
+    
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
     const card = document.querySelector('.card');
@@ -36,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const clickSound = document.getElementById('clickSound');
 
     function initializeAudio() {
-        backgroundMusic.volume = 1;
+        backgroundMusic.volume = 0.8;
         clickSound.volume = 0.5;
         
         // Try to play music immediately
@@ -394,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeAudio();
 
     // Test controls
-    const testControls = document.createElement('div');
+    // const testControls = document.createElement('div');
     testControls.style.cssText = `
         position: fixed;
         bottom: 10px;
