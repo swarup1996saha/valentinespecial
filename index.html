@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Love Week 2024 💕</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Add video container at the top -->
+    <div class="background-video">
+        <video id="bgVideo" autoplay muted loop>
+            <source src="assets/Sahiba (Music Video) Jasleen Royal  Vijay Deverakonda Radhikka Madan Stebin  Priya Aditya  Sudhanshu (1).mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <audio id="backgroundMusic" loop>
+        <source src="assets/Sahiba Priya Saraiya 128 Kbps.mp3" type="audio/mp3">
+    </audio>
+    <audio id="clickSound">
+        <source src="assets/click.mp3" type="audio/mp3">
+    </audio>
+
+    <div id="countdown-container" class="countdown-container">
+        <h1>Time Until Love Week</h1>
+        <div class="countdown">
+            <div class="time-section">
+                <span id="days">00</span>
+                <p>Days</p>
+            </div>
+            <div class="time-section">
+                <span id="hours">00</span>
+                <p>Hours</p>
+            </div>
+            <div class="time-section">
+                <span id="minutes">00</span>
+                <p>Minutes</p>
+            </div>
+            <div class="time-section">
+                <span id="seconds">00</span>
+                <p>Seconds</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="valentine-content" class="hidden">
+        <div class="container">
+            <div class="heart"></div>
+            <div class="card">
+                <h1>Be My Valentine?</h1>
+                <p class="message">I've been meaning to ask you something... 💝</p>
+                <div class="buttons">
+                    <button id="yesBtn"><i class="fas fa-heart"></i> Yes</button>
+                    <button id="noBtn"><i class="fas fa-times"></i> No</button>
+                </div>
+            </div>
+            <div id="special-message" class="hidden">
+                <div class="message-carousel">
+                    <div class="message-slide">
+                        <h2>You've Made Me So Happy! ❤️</h2>
+                        <p>Every moment with you is magical...</p>
+                    </div>
+                    <!-- More slides will be added dynamically -->
+                </div>
+                <button id="playAgain" class="hidden">Send Another Message ✨</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
